@@ -17,14 +17,17 @@ function Home() {
       <div className={Styles.homeBgImg}>
         <Helmet>
           <meta charSet="utf-8" />
-          <meta name="description" content="La home page" />
+          <meta
+            name="description"
+            content="Paye Ton Stage, le site qui met en relation les entreprises et les futurs pépites de la tech."
+          />
           <meta name="author" content="Les Stagiaires X Paye Ton Stage" />
-          <meta content="stage, alternance, dev, developpeur, tech, etudes" />
-          <title>Inscription | Connection</title>
+          <meta name="viewport" content="width=device-width,initial-scale=1" />
           <link rel="canonical" href="http://mysite.com/example" />
+          <title>Inscription | Connection</title>
         </Helmet>
 
-        <div className={Styles.homeContent}>
+        <main className={Styles.homeContent}>
           <h1 className={Styles.homeTitle}>Paye ton stage</h1>
           <p className={Styles.homeDescription}>Lorem lorem lorem</p>
           <AppButton
@@ -36,7 +39,7 @@ function Home() {
             onClick={() => history.push('/inscription-entreprise')}
           />
           <AppButton title="Connexion" onClick={redirect} />
-        </div>
+        </main>
       </div>
     </section>
   );

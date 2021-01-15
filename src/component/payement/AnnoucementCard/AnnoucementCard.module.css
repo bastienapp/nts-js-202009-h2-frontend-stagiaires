@@ -3,6 +3,12 @@
   background-color: #fff;
   padding-right: 0.4rem;
   width: 90%;
+  margin: 1rem 0;
+  position: relative;
+}
+
+.pictureCompany {
+  max-width: 190px;
 }
 
 .descriptionCard {
@@ -31,6 +37,13 @@
   margin-right: 0rem;
   padding: 0.5rem 0.4rem;
   border-radius: 0.3rem;
+}
+
+.buttonTrash {
+  position: absolute;
+  border: none;
+  background-color: transparent;
+  right: 0;
 }
 
 @media screen and (min-width: 768px) {

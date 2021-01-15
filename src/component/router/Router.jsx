@@ -1,25 +1,47 @@
-import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Switch, Route, useHistory } from 'react-router-dom';
+import axios from 'axios';
 import HeaderLayout from '../layouts/Header.layout';
 import DetailsLayout from '../layouts/Details.layout';
 import Home from '../views/Home';
 import Search from '../views/Search';
+import Auth from '../../authenticate/Authenticate';
 
 import PrivateRoute from './PrivateRoute';
-import Details from '../views/Details';
 import Shipping from '../views/Shipping';
 import NotFound from '../views/NotFound';
 
-import AnnouncementDetailled from '../AnnouncementDetailled/AnnouncementDetailled';
+import AnnouncementDetailled from '../views/AnnouncementDetailled';
 
 import SignIn from '../views/SignIn';
 import SignUpTrainee from '../views/SignUpTrainee';
 import SignUpCompany from '../views/SignUpCompany';
-
+import AnnonceProvider from '../../Context/AnnonceContext';
 
 function Router() {
+  const history = useHistory();
+
+  useEffect(() => {
+    if (localStorage.getItem('TOKEN')) {
+      axios
+        .get(`${process.env.REACT_APP_SERVER}/login/checkAuth`, {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('TOKEN')}`,
+            'Access-Control-Allow-Origin': process.env.REACT_APP_SERVER,
+          },
+        })
+        .then((res) => {
+          if (res.data.success) {
+            Auth.logIn(() => history.push('/annonces'));
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  }, []);
   return (
-    <BrowserRouter>
+    <AnnonceProvider>
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/Connexion" component={SignIn} />
@@ -37,23 +59,9 @@ function Router() {
           component={Shipping}
         />
         <PrivateRoute
-          path="/benoit"
+          path="/annonces/:slug/:id"
           layout={DetailsLayout}
-          component={() => {
-            const annonce = {
-              name: 'Linkedin',
-              prix: '50',
-              localisation: 'Paris',
-              expertise: 'Full Stack',
-              logoSmall: 'logo',
-            };
-            return <AnnouncementDetailled announcement={annonce} />;
-          }}
-        />
-        <PrivateRoute
-          path="/annonces/:slug"
-          layout={DetailsLayout}
-          component={Details}
+          component={AnnouncementDetailled}
         />
         <PrivateRoute
           exact
@@ -62,7 +70,7 @@ function Router() {
           component={NotFound}
         />
       </Switch>
-    </BrowserRouter>
+    </AnnonceProvider>
   );
 }
 

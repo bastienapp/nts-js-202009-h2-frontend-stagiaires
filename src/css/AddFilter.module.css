@@ -34,6 +34,22 @@
   margin: 0.2rem;
 }
 
+.inputSelect {
+  padding-right: 1.7rem;
+  border: 1px solid var(--light-grey-stroke);
+  background-color: transparent;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  outline: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url('../Assets/icons/arrow-down.svg');
+  background-repeat: no-repeat;
+  background-position: 100% 0.2rem;
+}
+
 select {
   padding: 0.2rem;
   border-color: var(--light-grey-stroke);

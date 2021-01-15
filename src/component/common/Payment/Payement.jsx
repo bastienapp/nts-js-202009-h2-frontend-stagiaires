@@ -5,14 +5,15 @@ import styles from './Payement.module.css';
 
 const Payement = ({ icon, alt, href }) => {
   return (
-    <a href={href} className={styles.wrapperPayement}>
-      <img className={styles.IconPayement} src={icon} alt={alt} />
-    </a>
+    <div className={styles.payementContener}>
+      <a href={href} title={alt} className={styles.wrapperPayement}>
+        <img className={styles.IconPayement} src={icon} alt={alt} />
+      </a>
+    </div>
   );
 };
 
 export default Payement;
-
 Payement.propTypes = {
   icon: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,

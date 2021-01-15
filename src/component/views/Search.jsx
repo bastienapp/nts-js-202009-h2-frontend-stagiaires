@@ -7,39 +7,63 @@ import AddFilter from '../announcements/Filters/AddFilter';
 
 function Search() {
   const [search, setSearch] = useState('');
+  const [filters, setFilters] = useState(null);
   const [filterView, setFilterView] = useState(false);
   return (
-    <div className={styles.announcementsPage}>
+    <>
       <Helmet>
         <meta charSet="utf-8" />
-        <meta name="description" content="La page de recherche" />
-        <meta name="author" content="Les Stagiaires X Paye Ton Stage" />
         <meta
-          name="keywords"
-          content="stage, alternance, dev, developpeur, tech, etudes"
+          name="description"
+          content="Des centaines d'offres de stage et alternance t'attendent, viens vite les découvrir"
         />
-        <title>Annonces</title>
+        <meta name="author" content="Les Stagiaires X Paye Ton Stage" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
         <link rel="canonical" href="http://mysite.com/example" />
+        <title>Annonces</title>
       </Helmet>
-      <main>
-        <h2>Les annonces</h2>
-        <Searchbar search={search} setSearch={setSearch} />
-        <div
-          className={
-            filterView ? styles.filterButtonOn : styles.filterButtonOff
-          }
-          role="button"
-          onClick={() => {
-            setFilterView(!filterView);
-          }}
-        >
-          <p>Filtrer</p>
-          <span className={styles.arrowFilter}>&#728;</span>
-        </div>
-        {filterView ? <AddFilter filterView={filterView} /> : ''}
-        <AnnouncementsList search={search} />
-      </main>
-    </div>
+      <div className={styles.announcementsPage}>
+        <main>
+          <h2>Les annonces</h2>
+          <Searchbar search={search} setSearch={setSearch} />
+          <div className={filters ? styles.ButtonsFilters : ' '}>
+            {filters ? (
+              <div
+                className={styles.removeFilters}
+                onClick={() => setFilters('')}
+              >
+                x Réinitialiser
+              </div>
+            ) : (
+              ''
+            )}
+            <div
+              className={
+                filters ? styles.filterButtonOn : styles.filterButtonOff
+              }
+              role="button"
+              onClick={() => {
+                setFilterView(!filterView);
+              }}
+            >
+              <p>Filtrer</p>
+              <span className={styles.arrowFilter}>&#728;</span>
+            </div>
+          </div>
+
+          {filterView ? (
+            <AddFilter
+              filters={filters}
+              setFilters={setFilters}
+              filterView={filterView}
+            />
+          ) : (
+            ''
+          )}
+          <AnnouncementsList search={search} filters={filters} />
+        </main>
+      </div>
+    </>
   );
 }
 

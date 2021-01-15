@@ -5,9 +5,9 @@ export default function PriceFilter() {
   return (
     <div className={styles.blocFilter}>
       <p>Prix: &nbsp;</p>
-      <select name="price" id="price-select">
-        <option value="Javascript">Croissant</option>
-        <option value="React">Décroissant</option>
+      <select className={styles.inputSelect} name="prix" id="prix">
+        <option value="Croissant">Croissant</option>
+        <option value="Décroissant">Décroissant</option>
       </select>
     </div>
   );

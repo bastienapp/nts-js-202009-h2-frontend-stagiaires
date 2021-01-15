@@ -1,46 +1,65 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Helmet } from 'react-helmet';
 
 import AnnoucementCard from '../payement/AnnoucementCard/AnnoucementCard';
 import Payement from '../common/Payment/Payement';
+import { AnnonceContext } from '../../Context/AnnonceContext';
 
-import linkedinSmall from '../../Assets/Images/linkedin-small.png';
 import styles from '../../css/Shipping.module.css';
 import cardPayement from '../../Assets/Logo/creditcard.svg';
 import cpf from '../../Assets/Logo/cpf.png';
 import paypal from '../../Assets/Logo/pp.png';
 
 function Shipping() {
+  const { annonce, setAnnonce } = useContext(AnnonceContext);
+
+  const price = annonce.reduce((acc, curr) => acc + curr.prix, 0);
+
+  const handleAnnouncement = (id) => {
+    setAnnonce(annonce.filter((card) => card.id !== id));
+  };
+
   return (
-    <div className={styles.ContainerShipping}>
+    <>
       <Helmet>
         <meta charSet="utf-8" />
-        <meta name="description" content="Le panier" />
-        <meta name="author" content="Les Stagiaires X Paye Ton Stage" />
         <meta
-          name="keywords"
-          content="stage, alternance, dev, developpeur, tech, etudes"
+          name="description"
+          content="Selectionne tes annonces favorites parmis des centaines et ajoute les à ton panier"
         />
-        <title>Panier</title>
+        <meta name="author" content="Les Stagiaires X Paye Ton Stage" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
         <link rel="canonical" href="http://mysite.com/example" />
+        <title>Panier</title>
       </Helmet>
-      <main>
+      <main className={styles.ContainerShipping}>
         <h2 className={styles.titleShipping}>Mon panier</h2>
-        <div className={styles.ShippingCard}>
+        <section className={styles.ShippingCard}>
           <h3 className={styles.titleAchat}>
             Mes achats&nbsp;
-            <span className={styles.numberAnnounceBasket}>(1)</span>
+            <span className={styles.numberAnnounceBasket}>
+              {`(${annonce.length})`}
+            </span>
           </h3>
-          <AnnoucementCard
-            logo_small={linkedinSmall}
-            name="Linkedin"
-            localisation="Nantes"
-            expertise="Full Stack"
-            prix="250€"
-          />
+          {annonce.length > 0 ? (
+            annonce.map((card) => (
+              <AnnoucementCard
+                key={card.id}
+                id={card.id}
+                logo_small={card.logo_small}
+                name={card.nom}
+                localisation={card.localisation}
+                expertise={card.expertise}
+                prix={card.prix}
+                handleCard={(id) => handleAnnouncement(id)}
+              />
+            ))
+          ) : (
+            <p>Panier Vide</p>
+          )}
           <p className={styles.descritionPrice}>
             Montant à payer:
-            <span className={styles.descritionPriceSpan}>250€</span>
+            <span className={styles.descritionPriceSpan}>{`${price}€`}</span>
           </p>
           <section className={styles.wrapperAllPayement}>
             <Payement
@@ -59,9 +78,9 @@ function Shipping() {
               alt="payement cpf"
             />
           </section>
-        </div>
+        </section>
       </main>
-    </div>
+    </>
   );
 }
 

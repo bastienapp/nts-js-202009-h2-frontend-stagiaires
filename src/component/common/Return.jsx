@@ -10,14 +10,14 @@ import style from '../../css/HeaderAndFooter.module.css';
 const Return = ({ path }) => {
   const history = useHistory();
   return (
-    <section>
+    <>
       <FontAwesomeIcon
         icon={faArrowCircleLeft}
         className={style.arrow}
         onClick={() => history.push(path)}
       />
       Retour aux annonces
-    </section>
+    </>
   );
 };
 

@@ -2,7 +2,8 @@
 User-agent: Googlebot
 Disallow: /Connexion
 Disallow: /inscription-entreprise
-Disallow: /inscription-stagiaire /panier
+Disallow: /inscription-stagiaire
+Disallow: /annonces/*
 Disallow: /panier
 
 Sitemap: http://localhost:3000/sitemap.xml

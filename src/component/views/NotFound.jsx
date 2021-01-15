@@ -8,14 +8,11 @@ function NotFound() {
     <>
       <Helmet>
         <meta charSet="utf-8" />
-        <meta name="description" content="404 Not Found" />
+        <meta name="description" content="Oups... Perdu tu es!" />
         <meta name="author" content="Les Stagiaires X Paye Ton Stage" />
-        <meta
-          name="keywords"
-          content="stage, alternance, dev, developpeur, tech, etudes"
-        />
-        <title>Oups...</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
         <link rel="canonical" href="http://mysite.com/example" />
+        <title>Oups...</title>
       </Helmet>
       <section className={style.container}>
         <img

@@ -1,26 +1,32 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 import Return from '../common/Return';
+import Notif from '../common/notif/Notif';
+import { AnnonceContext } from '../../Context/AnnonceContext';
 
 import style from '../../css/HeaderAndFooter.module.css';
 
 function DetailsLayout({ children }) {
+  const { annonce } = useContext(AnnonceContext);
   return (
     <>
       <header className={style.header}>
         <h1 className={style.brand}>Paye ton stage</h1>
-        <FontAwesomeIcon
-          style={{
-            color: '#F8DDBE',
-          }}
-          icon={faShoppingCart}
-        />
+        <Link to="/panier">
+          <FontAwesomeIcon
+            style={{
+              color: '#F8DDBE',
+            }}
+            icon={faShoppingCart}
+          />
+          {annonce.length > 0 && <Notif length={annonce.length} />}
+        </Link>
       </header>
-      <section className={style.container}>{children}</section>
+      <body className={style.container}>{children}</body>
 
       <footer className={style.container}>
         <Return path="/annonces" />
