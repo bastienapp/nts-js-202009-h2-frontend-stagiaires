@@ -24,7 +24,7 @@ const SignIn = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post('http://localhost:8080/login', state)
+      .post(`http://${process.env.REACT_APP_SERVER}/login`, state)
       .then(({ data }) => {
         localStorage.setItem('TOKEN', data.token);
         localStorage.setItem('USER', JSON.stringify(data.user));

@@ -40,7 +40,7 @@ const SignUpTrainee = () => {
     }
     if (cgu) {
       axios
-        .post('http://localhost:8080/register/user', state)
+        .post(`http://${process.env.REACT_APP_SERVER}/register/user`, state)
         .then(({ data }) => {
           localStorage.setItem('TOKEN', data.token);
           localStorage.setItem('USER', JSON.stringify(data.user));
